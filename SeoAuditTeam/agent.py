@@ -140,7 +140,7 @@ firecrawl_toolset = MCPToolset(
     connection_params=StdioServerParameters(
         command='bunx',
         args=[
-            "@mendable/firecrawl-mcp",  # The Firecrawl MCP server package
+            "firecrawl-mcp",  # The Firecrawl MCP server package
         ],
         env={
             **os.environ,
