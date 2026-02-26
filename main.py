@@ -69,3 +69,18 @@ search_executor_agent = LlmAgent(
 )
 
 google_search_tool = AgentTool(search_executor_agent)
+
+serp_analyst_agent = LlmAgent(
+    name="SerpAnalystAgent",
+    model="gemini-2.5-flash",
+    instruction="""You are Agent 2 in the workflow.
+
+STEP 1: Read primary keyword from state['page_audit']['target_keywords']['primary_keyword']
+STEP 2: Call perform_google_search tool with the keyword
+STEP 3: Parse search results (rank, title, URL, snippet, content_type)
+STEP 4: Analyze patterns (title patterns, content formats, key themes)
+STEP 5: Return structured JSON matching SerpAnalysis schema""",
+    tools=[google_search_tool],
+    output_schema=SerpAnalysis,
+    output_key="serp_analysis"
+)
