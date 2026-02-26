@@ -185,8 +185,10 @@ page_auditor_agent = LlmAgent(
     instruction="""You are Agent 1 in a sequential SEO workflow. Your role is to gather data silently for the next agents.
 
 STEP 1: Extract the URL
-- Look for a URL in the user's message (it will start with http:// or https://)
-- Example: If user says "Audit https://theunwindai.com", extract "https://theunwindai.com"
+- Look for a URL or domain in the user's message.
+- If the user provides a domain like "example.com" without a protocol, automatically prepend "https://".
+- Example: "Audit example.com" -> extract "https://example.com"
+- Example: "Audit https://example.com" -> extract "https://example.com"
 
 STEP 2: Call firecrawl_scrape
 - Call `firecrawl_scrape` with these exact parameters:
