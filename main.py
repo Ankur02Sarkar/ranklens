@@ -3,6 +3,8 @@ from typing import List, Optional
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
 import os
 from google.adk.agents import LlmAgent
+from google.adk.tools import google_search
+from google.adk.tools.agent_tool import AgentTool
 
 class HeadingItem(BaseModel):
     tag: str = Field(..., description="Heading tag such as h1, h2, h3.")
@@ -56,3 +58,14 @@ STEP 5: Return structured JSON matching PageAuditOutput schema""",
     output_schema=PageAuditOutput,
     output_key="page_audit"
 )
+
+search_executor_agent = LlmAgent(
+    name="perform_google_search",
+    model="gemini-2.5-flash",
+    instruction="""Execute Google searches for the provided keyword.
+- Return JSON with query and array of results (title, url, snippet).
+- No extra commentary—JSON text only.""",
+    tools=[google_search]
+)
+
+google_search_tool = AgentTool(search_executor_agent)
