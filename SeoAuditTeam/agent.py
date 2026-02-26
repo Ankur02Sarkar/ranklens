@@ -186,9 +186,11 @@ page_auditor_agent = LlmAgent(
 
 STEP 1: Extract the URL
 - Look for a URL or domain in the user's message.
-- If the user provides a domain like "example.com" without a protocol, automatically prepend "https://".
+- If the URL starts with "http://", keep it exactly as is.
+- If the URL starts with "https://", keep it exactly as is.
+- If the user provides a domain without a protocol (e.g., "example.com"), automatically prepend "https://".
 - Example: "Audit example.com" -> extract "https://example.com"
-- Example: "Audit https://example.com" -> extract "https://example.com"
+- Example: "Audit http://example.com" -> extract "http://example.com"
 
 STEP 2: Call firecrawl_scrape
 - Call `firecrawl_scrape` with these exact parameters:
