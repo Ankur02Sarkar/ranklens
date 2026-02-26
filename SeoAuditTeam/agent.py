@@ -141,14 +141,16 @@ firecrawl_toolset = MCPToolset(
         command='npx',
         args=[
             "-y",  # Auto-confirm npm package installation
-            "firecrawl-mcp",  # The Firecrawl MCP server package
+            "@mendable/firecrawl-mcp",  # The Firecrawl MCP server package
         ],
         env={
-            "FIRECRAWL_API_KEY": os.getenv("FIRECRAWL_API_KEY", "")
+            **os.environ,
+            "FIRECRAWL_API_KEY": os.getenv("FIRECRAWL_API_KEY", ""),
         }
     ),
     # Filter to use only the scrape tool for this agent
-    tool_filter=['firecrawl_scrape']
+    tool_filter=['firecrawl_scrape'],
+    initialize_timeout=120.0 # Increase timeout to 120 seconds
 )
 
 
