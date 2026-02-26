@@ -5,6 +5,8 @@ import os
 from google.adk.agents import LlmAgent
 from google.adk.tools import google_search
 from google.adk.tools.agent_tool import AgentTool
+from google.adk.agents import SequentialAgent
+
 
 class HeadingItem(BaseModel):
     tag: str = Field(..., description="Heading tag such as h1, h2, h3.")
@@ -102,3 +104,15 @@ STEP 2: Create a Markdown report with:
 STEP 3: Return ONLY Markdown (no JSON, no preamble)
 Start directly with "# SEO Audit Report"."""
 )
+
+seo_audit_team = SequentialAgent(
+    name="SeoAuditTeam",
+    description="Three-agent pipeline: audit → SERP → optimization report",
+    sub_agents=[
+        page_auditor_agent,
+        serp_analyst_agent,
+        optimization_advisor_agent
+    ]
+)
+
+root_agent = seo_audit_team
