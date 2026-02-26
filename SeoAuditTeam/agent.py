@@ -148,8 +148,7 @@ firecrawl_toolset = MCPToolset(
         }
     ),
     # Filter to use only the scrape tool for this agent
-    tool_filter=['firecrawl_scrape'],
-    initialize_timeout=120.0 # Increase timeout to 120 seconds
+    tool_filter=['firecrawl_scrape']
 )
 
 
