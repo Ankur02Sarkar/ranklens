@@ -138,9 +138,8 @@ class OptimizationRecommendation(BaseModel):
 # Firecrawl MCP Toolset - connects to Firecrawl's MCP server for web scraping
 firecrawl_toolset = MCPToolset(
     connection_params=StdioServerParameters(
-        command='npx',
+        command='bunx',
         args=[
-            "-y",  # Auto-confirm npm package installation
             "@mendable/firecrawl-mcp",  # The Firecrawl MCP server package
         ],
         env={

@@ -7,16 +7,13 @@ WORKDIR /app
 
 # Install system dependencies if needed (e.g., for certain Python packages)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
+    curl unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Install nodejs and npm for Firecrawl MCP
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g npx
-
-# Ensure npx is in the path and accessible
-ENV PATH="/usr/bin:/usr/local/bin:${PATH}"
+# Install Bun
+ENV BUN_INSTALL="/root/.bun"
+ENV PATH="$BUN_INSTALL/bin:$PATH"
+RUN curl -fsSL https://bun.sh/install | bash
 
 # Copy requirements file
 COPY requirements.txt .
@@ -25,7 +22,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Pre-install the firecrawl-mcp package globally to avoid runtime installation delays
-RUN npm install -g @mendable/firecrawl-mcp
+RUN bun install -g @mendable/firecrawl-mcp
 
 # Copy the rest of the application code
 COPY . .
