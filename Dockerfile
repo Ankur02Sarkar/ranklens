@@ -22,7 +22,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Pre-install the firecrawl-mcp package globally to avoid runtime installation delays
-RUN bun install -g @mendable/firecrawl-mcp
+RUN bun install -g firecrawl-mcp
 
 # Copy the rest of the application code
 COPY . .
