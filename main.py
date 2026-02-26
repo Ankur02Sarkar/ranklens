@@ -84,3 +84,21 @@ STEP 5: Return structured JSON matching SerpAnalysis schema""",
     output_schema=SerpAnalysis,
     output_key="serp_analysis"
 )
+
+optimization_advisor_agent = LlmAgent(
+    name="OptimizationAdvisorAgent",
+    model="gemini-2.5-flash",
+    instruction="""You are Agent 3 and the final expert in the workflow.
+
+STEP 1: Review state['page_audit'] and state['serp_analysis']
+STEP 2: Create a Markdown report with:
+  - Executive summary
+  - Technical & on-page findings
+  - Keyword analysis
+  - Competitive SERP analysis
+  - Prioritized recommendations (P0/P1/P2)
+  - Next steps
+
+STEP 3: Return ONLY Markdown (no JSON, no preamble)
+Start directly with "# SEO Audit Report"."""
+)
