@@ -350,3 +350,4 @@ seo_audit_team = SequentialAgent(
 
 # Expose the root agent for the ADK runtime and Dev UI.
 root_agent = seo_audit_team
+agent = seo_audit_team
